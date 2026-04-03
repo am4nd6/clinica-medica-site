@@ -1,0 +1,71 @@
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+
+const metrics = [
+  { value: 15000, prefix: "+", suffix: "", label: "Pacientes Atendidos", icon: "👥" },
+  { value: 98, prefix: "", suffix: "%", label: "Precisão Diagnóstica", icon: "🎯" },
+  { value: 24, prefix: "", suffix: "h", label: "Atendimento Contínuo", icon: "🕐" },
+  { value: 97, prefix: "", suffix: "%", label: "Alta Satisfação", icon: "⭐" },
+];
+
+const CountUp = ({ target, prefix, suffix }: { target: number; prefix: string; suffix: string }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const duration = 2000;
+          const startTime = performance.now();
+          const step = (now: number) => {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target]);
+
+  return (
+    <div ref={ref} className="font-heading text-4xl md:text-5xl font-bold text-foreground">
+      {prefix}{count.toLocaleString("pt-BR")}{suffix}
+    </div>
+  );
+};
+
+const MetricsSection = () => {
+  return (
+    <section className="section-padding relative z-10 bg-background">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {metrics.map((metric, i) => (
+            <motion.div
+              key={metric.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="text-center p-6 rounded-2xl bg-card border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300"
+            >
+              <div className="text-3xl mb-3">{metric.icon}</div>
+              <CountUp target={metric.value} prefix={metric.prefix} suffix={metric.suffix} />
+              <div className="mt-2 text-sm text-muted-foreground font-medium">{metric.label}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default MetricsSection;
