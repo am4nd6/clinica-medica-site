@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { Users, Target, Clock, ThumbsUp } from "lucide-react";
 
 const metrics = [
-  { value: 15000, prefix: "+", suffix: "", label: "Pacientes Atendidos", icon: "👥" },
-  { value: 98, prefix: "", suffix: "%", label: "Precisão Diagnóstica", icon: "🎯" },
-  { value: 24, prefix: "", suffix: "h", label: "Atendimento Contínuo", icon: "🕐" },
-  { value: 97, prefix: "", suffix: "%", label: "Alta Satisfação", icon: "⭐" },
+  { value: 15000, prefix: "+", suffix: "", label: "Pacientes Atendidos", icon: Users },
+  { value: 98, prefix: "", suffix: "%", label: "Precisão Diagnóstica", icon: Target },
+  { value: 24, prefix: "", suffix: "h", label: "Atendimento Contínuo", icon: Clock },
+  { value: 97, prefix: "", suffix: "%", label: "Alta Satisfação", icon: ThumbsUp },
 ];
 
 const CountUp = ({ target, prefix, suffix }: { target: number; prefix: string; suffix: string }) => {
@@ -57,7 +58,13 @@ const MetricsSection = () => {
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
               className="text-center p-6 rounded-2xl bg-card border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300"
             >
-              <div className="text-3xl mb-3">{metric.icon}</div>
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.3 }}
+                className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center mx-auto mb-3"
+              >
+                <metric.icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
+              </motion.div>
               <CountUp target={metric.value} prefix={metric.prefix} suffix={metric.suffix} />
               <div className="mt-2 text-sm text-muted-foreground font-medium">{metric.label}</div>
             </motion.div>
