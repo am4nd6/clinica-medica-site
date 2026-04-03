@@ -1,16 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import MetricsSection from "@/components/MetricsSection";
+import ServicesSection from "@/components/ServicesSection";
+import Heart3DSection from "@/components/Heart3DSection";
+import DNATechSection from "@/components/DNATechSection";
+import TeamSection from "@/components/TeamSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import BenefitsSection from "@/components/BenefitsSection";
+import LocationSection from "@/components/LocationSection";
+import CTASection from "@/components/CTASection";
+import Footer from "@/components/Footer";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <HeroSection />
+      <MetricsSection />
+      <ServicesSection />
+      <Heart3DSection />
+      <DNATechSection />
+      <TeamSection />
+      <TestimonialsSection />
+      <BenefitsSection />
+      <LocationSection />
+      <CTASection />
+      <Footer />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
