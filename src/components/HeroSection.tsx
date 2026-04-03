@@ -1,10 +1,38 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { Heart } from "lucide-react";
 import heroDoctors from "@/assets/hero-doctors.jpg";
+import avatar1 from "@/assets/avatar-1.jpg";
+import avatar2 from "@/assets/avatar-2.jpg";
+import avatar3 from "@/assets/avatar-3.jpg";
+import avatar4 from "@/assets/avatar-4.jpg";
+
+const avatars = [avatar1, avatar2, avatar3, avatar4];
 
 const HeroSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-      <div className="container mx-auto px-4 md:px-8">
+    <section
+      ref={sectionRef}
+      id="inicio"
+      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
+      style={{ background: "var(--gradient-hero)" }}
+    >
+      {/* Background decorative elements */}
+      <motion.div style={{ y: bgY }} className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute top-1/2 -left-24 w-[400px] h-[400px] rounded-full bg-primary/4 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] rounded-full bg-accent/40 blur-3xl" />
+      </motion.div>
+
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text */}
           <motion.div
@@ -50,32 +78,36 @@ const HeroSection = () => {
               transition={{ delay: 0.5, duration: 0.7 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <a
+              <motion.a
                 href="#agendar"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-base transition-all duration-300 hover:scale-[1.03] hover:shadow-lg active:scale-[0.97]"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-base transition-all duration-300 hover:shadow-lg"
                 style={{ boxShadow: "var(--shadow-button)" }}
               >
                 Agendar Consulta
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="#servicos"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl border-2 border-border bg-card text-foreground font-semibold text-base transition-all duration-300 hover:border-primary hover:text-primary hover:scale-[1.03] active:scale-[0.97]"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl border-2 border-border bg-card text-foreground font-semibold text-base transition-all duration-300 hover:border-primary hover:text-primary"
               >
                 Conhecer Serviços
-              </a>
+              </motion.a>
             </motion.div>
 
-            {/* Trust badges */}
+            {/* Trust badges with real avatars */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.7 }}
-              className="flex items-center gap-6 pt-4"
+              className="flex items-center gap-5 pt-4"
             >
               <div className="flex -space-x-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-card bg-muted overflow-hidden">
-                    <div className="w-full h-full bg-primary/20" />
+                {avatars.map((src, i) => (
+                  <div key={i} className="w-11 h-11 rounded-full border-2 border-card overflow-hidden shadow-sm">
+                    <img src={src} alt="Paciente" className="w-full h-full object-cover" width={44} height={44} />
                   </div>
                 ))}
               </div>
@@ -86,14 +118,14 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right: Image */}
+          {/* Right: Image with parallax */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
             className="relative"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <motion.div style={{ y: imageY }} className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
                 src={heroDoctors}
                 alt="Equipe médica profissional da clínica VidaPlena"
@@ -101,44 +133,12 @@ const HeroSection = () => {
                 height={1024}
                 className="w-full h-auto object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 to-transparent" />
-            </div>
-
-            {/* Floating card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1, duration: 0.5 }}
-              className="absolute -bottom-6 -left-6 glass-card rounded-2xl p-4 shadow-lg"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary text-lg">❤️</span>
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-foreground">98% Satisfação</div>
-                  <div className="text-xs text-muted-foreground">dos nossos pacientes</div>
-                </div>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-secondary/15 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent" />
             </motion.div>
 
-            {/* Floating card top-right */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
-              className="absolute -top-4 -right-4 glass-card rounded-2xl p-4 shadow-lg animate-float"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
-                  24h
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-foreground">Atendimento</div>
-                  <div className="text-xs text-muted-foreground">sempre disponível</div>
-                </div>
-              </div>
-            </motion.div>
+            {/* Subtle glow behind image */}
+            <div className="absolute -inset-4 -z-10 rounded-3xl bg-primary/8 blur-2xl" />
           </motion.div>
         </div>
       </div>

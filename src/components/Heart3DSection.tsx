@@ -1,94 +1,160 @@
-import { useRef, useMemo, useState } from "react";
+import { useRef, useMemo, useState, useCallback } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Float } from "@react-three/drei";
 import * as THREE from "three";
 import { motion } from "framer-motion";
 
-function HeartMesh() {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const { pointer } = useThree();
+function AnatomicalHeart() {
+  const groupRef = useRef<THREE.Group>(null);
+  const { pointer, viewport } = useThree();
   const [hovered, setHovered] = useState(false);
 
-  const geometry = useMemo(() => {
-    const shape = new THREE.Shape();
-    const x = 0, y = 0;
-    shape.moveTo(x, y + 0.5);
-    shape.bezierCurveTo(x, y + 0.5, x - 0.5, y + 1.5, x - 1.5, y + 1.5);
-    shape.bezierCurveTo(x - 3, y + 1.5, x - 3, y, x - 3, y);
-    shape.bezierCurveTo(x - 3, y - 1, x - 1.5, y - 2.5, x, y - 3.5);
-    shape.bezierCurveTo(x + 1.5, y - 2.5, x + 3, y - 1, x + 3, y);
-    shape.bezierCurveTo(x + 3, y, x + 3, y + 1.5, x + 1.5, y + 1.5);
-    shape.bezierCurveTo(x + 0.5, y + 1.5, x, y + 0.5, x, y + 0.5);
+  // Create a more anatomically realistic heart using multiple merged shapes
+  const heartGeometries = useMemo(() => {
+    const geos: { geo: THREE.BufferGeometry; color: string; pos: [number, number, number]; scale: [number, number, number]; rot: [number, number, number] }[] = [];
 
-    const extrudeSettings = {
-      depth: 1.5,
-      bevelEnabled: true,
-      bevelSegments: 12,
-      steps: 2,
-      bevelSize: 0.6,
-      bevelThickness: 0.6,
-      curveSegments: 24,
-    };
-    return new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    // Main ventricles (two large bulbous shapes)
+    const leftVentricle = new THREE.SphereGeometry(1.2, 32, 32);
+    leftVentricle.scale(1, 1.3, 1);
+    geos.push({ geo: leftVentricle, color: "#8B1A1A", pos: [-0.4, -0.3, 0], scale: [1, 1, 0.9], rot: [0, 0, 0.15] });
+
+    const rightVentricle = new THREE.SphereGeometry(1.05, 32, 32);
+    rightVentricle.scale(1, 1.2, 0.95);
+    geos.push({ geo: rightVentricle, color: "#A02020", pos: [0.5, -0.2, 0.15], scale: [1, 1, 0.85], rot: [0, 0, -0.1] });
+
+    // Atria (upper chambers)
+    const leftAtrium = new THREE.SphereGeometry(0.75, 32, 32);
+    geos.push({ geo: leftAtrium, color: "#7A1515", pos: [-0.6, 1.1, 0], scale: [1.1, 0.8, 0.85], rot: [0, 0, 0.2] });
+
+    const rightAtrium = new THREE.SphereGeometry(0.7, 32, 32);
+    geos.push({ geo: rightAtrium, color: "#901818", pos: [0.5, 1.0, 0.1], scale: [1, 0.75, 0.8], rot: [0, 0, -0.15] });
+
+    // Aorta (main artery arching up and back)
+    const aortaPath = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0, 1.3, 0),
+      new THREE.Vector3(-0.2, 2.0, 0),
+      new THREE.Vector3(0.1, 2.5, -0.1),
+      new THREE.Vector3(0.5, 2.3, -0.3),
+      new THREE.Vector3(0.7, 1.8, -0.5),
+    ]);
+    const aortaGeo = new THREE.TubeGeometry(aortaPath, 20, 0.28, 12, false);
+    geos.push({ geo: aortaGeo, color: "#C42B2B", pos: [0, 0, 0], scale: [1, 1, 1], rot: [0, 0, 0] });
+
+    // Pulmonary artery
+    const pulmonaryPath = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0.3, 1.4, 0.2),
+      new THREE.Vector3(0.1, 2.1, 0.3),
+      new THREE.Vector3(-0.3, 2.3, 0.2),
+      new THREE.Vector3(-0.6, 2.0, 0.1),
+    ]);
+    const pulmonaryGeo = new THREE.TubeGeometry(pulmonaryPath, 16, 0.22, 10, false);
+    geos.push({ geo: pulmonaryGeo, color: "#3A5BA0", pos: [0, 0, 0], scale: [1, 1, 1], rot: [0, 0, 0] });
+
+    // Superior vena cava
+    const svcPath = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0.6, 1.2, -0.1),
+      new THREE.Vector3(0.7, 1.8, -0.15),
+      new THREE.Vector3(0.65, 2.4, -0.2),
+    ]);
+    const svcGeo = new THREE.TubeGeometry(svcPath, 12, 0.18, 10, false);
+    geos.push({ geo: svcGeo, color: "#2E4A80", pos: [0, 0, 0], scale: [1, 1, 1], rot: [0, 0, 0] });
+
+    // Coronary arteries (surface vessels)
+    const coronary1Path = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-0.1, 0.8, 0.9),
+      new THREE.Vector3(-0.5, 0.2, 1.0),
+      new THREE.Vector3(-0.3, -0.5, 0.85),
+      new THREE.Vector3(0.1, -1.0, 0.7),
+    ]);
+    const coronary1 = new THREE.TubeGeometry(coronary1Path, 16, 0.06, 8, false);
+    geos.push({ geo: coronary1, color: "#D44040", pos: [0, 0, 0], scale: [1, 1, 1], rot: [0, 0, 0] });
+
+    const coronary2Path = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0.2, 0.9, 0.85),
+      new THREE.Vector3(0.6, 0.3, 0.9),
+      new THREE.Vector3(0.5, -0.4, 0.75),
+    ]);
+    const coronary2 = new THREE.TubeGeometry(coronary2Path, 12, 0.05, 8, false);
+    geos.push({ geo: coronary2, color: "#D44040", pos: [0, 0, 0], scale: [1, 1, 1], rot: [0, 0, 0] });
+
+    // Bottom tip
+    const tip = new THREE.ConeGeometry(0.6, 1.2, 16);
+    geos.push({ geo: tip, color: "#8B1A1A", pos: [0.05, -1.6, 0.05], scale: [1, 1, 0.8], rot: [0, 0, 0.1] });
+
+    return geos;
   }, []);
 
   useFrame((state) => {
-    if (!meshRef.current) return;
+    if (!groupRef.current) return;
     const t = state.clock.getElapsedTime();
-    
-    // Heartbeat pulsing
-    const beat = 1 + Math.sin(t * 2.5) * 0.04 + Math.sin(t * 5) * 0.02;
-    const scale = hovered ? beat * 1.08 : beat;
-    meshRef.current.scale.set(scale, scale, scale);
+
+    // Heartbeat pulsing - double beat pattern
+    const beat1 = Math.pow(Math.max(0, Math.sin(t * 2.8)), 8) * 0.06;
+    const beat2 = Math.pow(Math.max(0, Math.sin(t * 2.8 + 0.4)), 8) * 0.03;
+    const baseScale = hovered ? 1.06 : 1;
+    const scale = baseScale + beat1 + beat2;
+    groupRef.current.scale.set(scale, scale, scale);
 
     // Mouse-driven rotation
-    meshRef.current.rotation.y = THREE.MathUtils.lerp(
-      meshRef.current.rotation.y,
-      pointer.x * 0.4,
-      0.05
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(
+      groupRef.current.rotation.y,
+      pointer.x * 0.35,
+      0.04
     );
-    meshRef.current.rotation.x = THREE.MathUtils.lerp(
-      meshRef.current.rotation.x,
-      -pointer.y * 0.3 + 0.1,
-      0.05
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      -pointer.y * 0.2,
+      0.04
     );
   });
 
+  const handlePointerOver = useCallback(() => setHovered(true), []);
+  const handlePointerOut = useCallback(() => setHovered(false), []);
+
   return (
-    <mesh
-      ref={meshRef}
-      geometry={geometry}
-      rotation={[Math.PI, 0, 0]}
-      position={[0, 0.5, 0]}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
+    <group
+      ref={groupRef}
+      position={[0, -0.2, 0]}
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
     >
-      <meshPhysicalMaterial
-        color="#c0392b"
-        roughness={0.35}
-        metalness={0.15}
-        clearcoat={0.6}
-        clearcoatRoughness={0.3}
-        envMapIntensity={1.2}
-      />
-    </mesh>
+      {heartGeometries.map((item, i) => (
+        <mesh
+          key={i}
+          geometry={item.geo}
+          position={item.pos}
+          scale={item.scale}
+          rotation={item.rot}
+        >
+          <meshPhysicalMaterial
+            color={item.color}
+            roughness={0.55}
+            metalness={0.05}
+            clearcoat={0.3}
+            clearcoatRoughness={0.4}
+            envMapIntensity={0.8}
+          />
+        </mesh>
+      ))}
+    </group>
   );
 }
 
 function HeartScene() {
   return (
     <Canvas
-      camera={{ position: [0, 0, 10], fov: 45 }}
+      camera={{ position: [0, 0.5, 6], fov: 40 }}
       style={{ width: "100%", height: "100%" }}
       gl={{ antialias: true, alpha: true }}
+      dpr={[1, 2]}
     >
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 5, 5]} intensity={1} color="#ffffff" />
-      <directionalLight position={[-3, 3, -3]} intensity={0.4} color="#00C2B8" />
-      <pointLight position={[0, -3, 3]} intensity={0.6} color="#e74c3c" />
-      <spotLight position={[0, 8, 4]} angle={0.4} penumbra={0.5} intensity={0.8} />
-      <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-        <HeartMesh />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 5, 5]} intensity={0.9} color="#ffffff" />
+      <directionalLight position={[-3, 3, -3]} intensity={0.3} color="#88cccc" />
+      <pointLight position={[0, -3, 3]} intensity={0.5} color="#cc4444" />
+      <spotLight position={[0, 6, 4]} angle={0.5} penumbra={0.6} intensity={0.6} />
+      <Float speed={1.2} rotationIntensity={0.1} floatIntensity={0.3}>
+        <AnatomicalHeart />
       </Float>
       <OrbitControls
         enableZoom={false}
@@ -101,10 +167,10 @@ function HeartScene() {
 }
 
 const floatingData = [
-  { label: "BPM", value: "72", x: "left-4 md:left-8", y: "top-1/4" },
-  { label: "Pressão", value: "120/80", x: "right-4 md:right-8", y: "top-1/3" },
-  { label: "SpO2", value: "98%", x: "left-8 md:left-16", y: "bottom-1/4" },
-  { label: "Temp.", value: "36.5°", x: "right-8 md:right-16", y: "bottom-1/3" },
+  { label: "BPM", value: "72", x: "left-2 md:left-8", y: "top-1/4" },
+  { label: "Pressão", value: "120/80", x: "right-2 md:right-8", y: "top-1/3" },
+  { label: "SpO2", value: "98%", x: "left-4 md:left-16", y: "bottom-1/4" },
+  { label: "Temp.", value: "36.5°", x: "right-4 md:right-16", y: "bottom-1/3" },
 ];
 
 const Heart3DSection = () => {
@@ -126,8 +192,10 @@ const Heart3DSection = () => {
           </p>
         </motion.div>
 
-        <div className="relative h-[400px] md:h-[500px] lg:h-[600px]">
-          <HeartScene />
+        <div className="relative w-full max-w-3xl mx-auto" style={{ aspectRatio: "4/3" }}>
+          <div className="absolute inset-0">
+            <HeartScene />
+          </div>
 
           {/* Floating data cards */}
           {floatingData.map((data, i) => (
@@ -137,7 +205,7 @@ const Heart3DSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 + i * 0.15, duration: 0.5 }}
-              className={`absolute ${data.x} ${data.y} glass-card rounded-xl p-3 md:p-4 animate-float border border-primary/20`}
+              className={`absolute ${data.x} ${data.y} rounded-xl p-3 md:p-4 animate-float border border-primary/20`}
               style={{ animationDelay: `${i * 0.5}s`, background: "rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}
             >
               <div className="text-xs text-primary font-medium">{data.label}</div>
