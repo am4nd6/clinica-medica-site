@@ -2,6 +2,16 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
+// ─── Tamanho da logo ──────────────────────────────────────────────────────────
+// 👇 Altere este valor para aumentar/diminuir a logo. 100 = tamanho padrão (44px).
+//    Ex: 120 = 20% maior, 80 = 20% menor, 150 = 50% maior
+const LOGO_SCALE = 130; // em %
+
+// 👇 Espaçamento entre o ícone e o texto "VidaPlena". 100 = padrão (8px).
+//    Ex: 50 = metade, 0 = colado, 200 = dobro
+const LOGO_GAP = 9; // em %
+// ──────────────────────────────────────────────────────────────────────────────
+
 const navLinks = [
   { label: "Início", href: "#inicio" },
   { label: "Serviços", href: "#servicos" },
@@ -13,6 +23,8 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const logoSize = Math.round(44 * (LOGO_SCALE / 100));
+  const logoGap = Math.round(8 * (LOGO_GAP / 100));
 
   return (
     <motion.nav
@@ -22,19 +34,23 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/30"
     >
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4 md:px-8">
-        <a href="#inicio" className="flex items-center gap-2">
+        <a href="#inicio" className="flex items-center" style={{ gap: logoGap }}>
+
           <img
             src="/logo.png"
             alt="VidaPlena logo"
-            width={44}
-            height={44}
-            className="w-11 h-11 rounded-lg object-cover"
+            width={logoSize}
+            height={logoSize}
+            style={{ width: logoSize, height: logoSize }}
+            className="rounded-lg object-cover"
             onError={(e) => {
               // fallback enquanto não houver imagem
               const t = e.currentTarget;
               t.style.display = "none";
               const fb = document.createElement("div");
-              fb.className = "w-11 h-11 rounded-lg bg-primary flex items-center justify-center";
+              fb.style.width = `${logoSize}px`;
+              fb.style.height = `${logoSize}px`;
+              fb.className = "rounded-lg bg-primary flex items-center justify-center";
               fb.innerHTML = '<span class="text-primary-foreground font-heading font-bold text-xl">V</span>';
               t.parentElement?.insertBefore(fb, t);
             }}
