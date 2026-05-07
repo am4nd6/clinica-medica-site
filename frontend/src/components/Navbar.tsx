@@ -23,9 +23,22 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4 md:px-8">
         <a href="#inicio" className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-heading font-bold text-lg">V</span>
-          </div>
+          <img
+            src="/logo.png"
+            alt="VidaPlena logo"
+            width={44}
+            height={44}
+            className="w-11 h-11 rounded-lg object-cover"
+            onError={(e) => {
+              // fallback enquanto não houver imagem
+              const t = e.currentTarget;
+              t.style.display = "none";
+              const fb = document.createElement("div");
+              fb.className = "w-11 h-11 rounded-lg bg-primary flex items-center justify-center";
+              fb.innerHTML = '<span class="text-primary-foreground font-heading font-bold text-xl">V</span>';
+              t.parentElement?.insertBefore(fb, t);
+            }}
+          />
           <span className="font-heading font-bold text-xl text-foreground">VidaPlena</span>
         </a>
 

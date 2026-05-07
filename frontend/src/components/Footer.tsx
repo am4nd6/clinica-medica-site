@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Box } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -20,10 +21,15 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Links Rápidos</h4>
             <ul className="space-y-2">
-              {["Início", "Serviços", "Equipe", "Depoimentos"].map((item) => (
-                <li key={item}>
-                  <a href={`#${item.toLowerCase()}`} className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors duration-200">
-                    {item}
+              {[
+                { label: "Início", href: "#inicio" },
+                { label: "Serviços", href: "#servicos" },
+                { label: "Equipe", href: "#equipe" },
+                { label: "Depoimentos", href: "#depoimentos" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors duration-200">
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -52,7 +58,40 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-secondary-foreground/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* ── Créditos de Modelos 3D ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          id="creditos-3d"
+          className="border-t border-secondary-foreground/10 pt-8 mb-6"
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 p-4 rounded-xl bg-secondary-foreground/5 border border-secondary-foreground/8">
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <Box size={16} className="text-primary" />
+              <span className="text-xs font-semibold text-secondary-foreground/70 uppercase tracking-wide">
+                Créditos — Modelos 3D
+              </span>
+            </div>
+            <div className="w-px h-4 bg-secondary-foreground/20 hidden sm:block" />
+            <p className="text-xs text-secondary-foreground/50 leading-relaxed">
+              Modelo 3D do coração humano por{" "}
+              {/* 👇 Substitua pelo nome e link do autor real */}
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline font-medium"
+              >
+                [neshallads]
+              </a>
+            </p>
+          </div>
+        </motion.div>
+
+        {/* ── Rodapé final ── */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-secondary-foreground/40">
             © 2026 VidaPlena. Todos os direitos reservados.
           </p>
