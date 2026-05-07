@@ -2,15 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-// ─── Tamanho da logo ──────────────────────────────────────────────────────────
-// 👇 Altere este valor para aumentar/diminuir a logo. 100 = tamanho padrão (44px).
-//    Ex: 120 = 20% maior, 80 = 20% menor, 150 = 50% maior
-const LOGO_SCALE = 130; // em %
-
-// 👇 Espaçamento entre o ícone e o texto "VidaPlena". 100 = padrão (8px).
-//    Ex: 50 = metade, 0 = colado, 200 = dobro
-const LOGO_GAP = 9; // em %
-// ──────────────────────────────────────────────────────────────────────────────
+import { LOGO_SCALE, LOGO_GAP } from "@/lib/logo";
 
 const navLinks = [
   { label: "Início", href: "#inicio" },

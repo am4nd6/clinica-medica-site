@@ -1,16 +1,35 @@
 import { motion } from "framer-motion";
 import { Box } from "lucide-react";
+import { LOGO_SCALE, LOGO_GAP } from "@/lib/logo";
 
 const Footer = () => {
+  const logoSize = Math.round(44 * (LOGO_SCALE / 100));
+  const logoGap = Math.round(8 * (LOGO_GAP / 100));
+
   return (
     <footer id="contato" className="bg-secondary pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-lg">V</span>
-              </div>
+            <div className="flex items-center" style={{ gap: logoGap }}>
+              <img
+                src="/logo.png"
+                alt="VidaPlena logo"
+                width={logoSize}
+                height={logoSize}
+                style={{ width: logoSize, height: logoSize }}
+                className="rounded-lg object-cover"
+                onError={(e) => {
+                  const t = e.currentTarget;
+                  t.style.display = "none";
+                  const fb = document.createElement("div");
+                  fb.style.width = `${logoSize}px`;
+                  fb.style.height = `${logoSize}px`;
+                  fb.className = "rounded-lg bg-primary flex items-center justify-center";
+                  fb.innerHTML = '<span class="text-primary-foreground font-heading font-bold text-xl">V</span>';
+                  t.parentElement?.insertBefore(fb, t);
+                }}
+              />
               <span className="font-heading font-bold text-xl text-secondary-foreground">VidaPlena</span>
             </div>
             <p className="text-secondary-foreground/60 text-sm leading-relaxed">
