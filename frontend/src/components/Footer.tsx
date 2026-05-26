@@ -9,7 +9,7 @@ const Footer = () => {
     <footer id="contato" className="bg-secondary py-10 md:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <div className="flex items-start gap-2 mb-4">
               <img
                 src="/logo.png"
@@ -38,7 +38,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="pt-[14px]">
+          <div>
             <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Links Rápidos</h4>
             <ul className="space-y-2">
               {[
@@ -56,7 +56,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="pt-[14px]">
+          <div>
             <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Serviços</h4>
             <ul className="space-y-2">
               {["Cardiologia", "Pediatria", "Ortopedia", "Telemedicina"].map((item) => (
@@ -67,7 +67,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="pt-[14px]">
+          <div className="col-span-2 md:col-span-1">
             <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Contato</h4>
             <ul className="space-y-2 text-sm text-secondary-foreground/60 break-words">
               <li>Av. Paulista, 1000</li>
