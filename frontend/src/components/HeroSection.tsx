@@ -22,26 +22,26 @@ const HeroSection = () => {
     <section
       ref={sectionRef}
       id="inicio"
-      className="relative overflow-hidden pt-20 pb-12 md:pb-20 lg:pb-0 lg:min-h-screen lg:flex lg:items-center"
+      className="relative overflow-hidden pt-20 pb-12 md:pb-16 lg:pb-24"
       style={{ background: "var(--gradient-hero)" }}
     >
       {/* Background decorative elements */}
       <motion.div style={{ y: bgY }} className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute top-1/2 -left-24 w-[400px] h-[400px] rounded-full bg-primary/4 blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] rounded-full bg-accent/40 blur-3xl" />
+        <div className="absolute -top-12 -right-12 w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute top-1/2 -left-12 w-[150px] h-[150px] md:w-[250px] md:h-[250px] rounded-full bg-primary/4 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[100px] h-[100px] md:w-[200px] md:h-[200px] rounded-full bg-accent/40 blur-3xl" />
       </motion.div>
 
       <div className="container mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 items-center">
           {/* Left: Text */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-8"
+            className="flex-1 w-full space-y-6 md:space-y-8"
           >
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.7 }}
-                className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground"
+                className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-foreground break-words"
               >
                 Saúde Inteligente com{" "}
                 <span className="gradient-text">Cuidado Humano</span>
@@ -66,7 +66,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.7 }}
-                className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed"
+                className="text-base sm:text-lg text-muted-foreground leading-relaxed break-words max-w-xl"
               >
                 Tecnologia avançada e atendimento personalizado para cuidar de você.
               </motion.p>
@@ -76,13 +76,13 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.7 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-3"
             >
               <motion.a
                 href="#agendar"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-base transition-all duration-300 hover:shadow-lg"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-300 hover:shadow-lg w-full sm:w-auto"
                 style={{ boxShadow: "var(--shadow-button)" }}
               >
                 Agendar Consulta
@@ -91,22 +91,22 @@ const HeroSection = () => {
                 href="#servicos"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl border-2 border-border bg-card text-foreground font-semibold text-base transition-all duration-300 hover:border-primary hover:text-primary"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl border-2 border-border bg-card text-foreground font-semibold text-sm transition-all duration-300 hover:border-primary hover:text-primary w-full sm:w-auto"
               >
                 Conhecer Serviços
               </motion.a>
             </motion.div>
 
-            {/* Trust badges with real avatars */}
+            {/* Trust badges */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.7 }}
-              className="flex items-center gap-5 pt-4"
+              className="flex items-center gap-5"
             >
               <div className="flex -space-x-3">
                 {avatars.map((src, i) => (
-                  <div key={i} className="w-11 h-11 rounded-full border-2 border-card overflow-hidden shadow-sm">
+                  <div key={i} className="w-9 h-9 md:w-10 md:h-10 rounded-full border-2 border-card overflow-hidden shadow-sm">
                     <img src={src} alt="Paciente" className="w-full h-full object-cover" width={44} height={44} />
                   </div>
                 ))}
@@ -118,12 +118,12 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right: Image with parallax */}
+          {/* Right: Image */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-            className="relative"
+            className="flex-1 w-full relative"
           >
             <motion.div style={{ y: imageY }} className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
@@ -138,7 +138,7 @@ const HeroSection = () => {
             </motion.div>
 
             {/* Subtle glow behind image */}
-            <div className="absolute -inset-4 -z-10 rounded-3xl bg-primary/8 blur-2xl" />
+            <div className="absolute -inset-2 md:-inset-3 lg:-inset-4 -z-10 rounded-3xl bg-primary/8 blur-2xl" />
           </motion.div>
         </div>
       </div>
