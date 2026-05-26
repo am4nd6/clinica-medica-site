@@ -51,12 +51,15 @@ function HeartScene() {
       const maxDim = Math.max(size.x, size.y, size.z);
       if (maxDim < 0.001) return;
 
-      const vFov = (camera.fov * Math.PI) / 180;
-      const dist = maxDim / (2 * Math.tan(vFov / 2));
+      const pCamera = camera as THREE.PerspectiveCamera;
+      if (pCamera.fov !== undefined) {
+        const vFov = (pCamera.fov * Math.PI) / 180;
+        const dist = maxDim / (2 * Math.tan(vFov / 2));
 
-      camera.position.set(center.x, center.y, Math.max(dist * 1.6, 3));
-      camera.lookAt(center);
-      camera.updateProjectionMatrix();
+        pCamera.position.set(center.x, center.y, Math.max(dist * 1.6, 3));
+        pCamera.lookAt(center);
+        pCamera.updateProjectionMatrix();
+      }
     });
 
     return () => cancelAnimationFrame(raf);
@@ -103,7 +106,7 @@ export default function Heart3DSection() {
   return (
     <section
       id="coracao-3d"
-      className="relative py-16 md:py-24 overflow-hidden"
+      className="relative py-12 md:py-16 lg:py-20 overflow-hidden"
       style={{ background: "var(--gradient-hero)" }}
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -111,7 +114,7 @@ export default function Heart3DSection() {
       </div>
 
       <div className="container mx-auto relative z-10">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10 items-center">
           <div className="flex items-center justify-center w-full">
             <div className="w-full max-w-full h-56 sm:h-72 md:h-80 lg:h-[400px] rounded-3xl overflow-hidden shadow-2xl bg-black/10">
               <Canvas
@@ -135,7 +138,7 @@ export default function Heart3DSection() {
               <span className="gradient-text">Coração</span>
             </h2>
 
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-full break-words">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-full break-words text-justify">
               Nossa clínica utiliza tecnologia de ponta em cardiologia para
               diagnosticar e tratar doenças cardiovasculares com precisão e
               humanização.
@@ -158,7 +161,7 @@ export default function Heart3DSection() {
 
             <a
               href="#agendar"
-              className="inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-base transition-all duration-300 hover:shadow-lg hover:scale-105"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-lg bg-primary text-foreground font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:scale-105"
             >
               Agendar Consulta Cardíaca
             </a>

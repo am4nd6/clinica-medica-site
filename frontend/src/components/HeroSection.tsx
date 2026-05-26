@@ -22,7 +22,7 @@ const HeroSection = () => {
     <section
       ref={sectionRef}
       id="inicio"
-      className="relative overflow-hidden pt-20 pb-12 md:pb-16 lg:pb-24"
+      className="relative overflow-hidden pt-20 pb-10 md:pb-12 lg:pb-16"
       style={{ background: "var(--gradient-hero)" }}
     >
       {/* Background decorative elements */}
@@ -33,13 +33,13 @@ const HeroSection = () => {
       </motion.div>
 
       <div className="container mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 items-center">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-10 items-center">
           {/* Left: Text */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex-1 w-full space-y-6 md:space-y-8"
+            className="flex-1 w-full space-y-6 md:space-y-6"
           >
             <div className="space-y-3 md:space-y-4">
               <motion.div
@@ -82,7 +82,7 @@ const HeroSection = () => {
                 href="#agendar"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-300 hover:shadow-lg w-full sm:w-auto"
+                className="inline-flex items-center justify-center px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg bg-primary text-foreground font-semibold text-sm lg:text-lg transition-all duration-300 hover:shadow-lg w-full sm:w-auto"
                 style={{ boxShadow: "var(--shadow-button)" }}
               >
                 Agendar Consulta
@@ -91,7 +91,7 @@ const HeroSection = () => {
                 href="#servicos"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl border-2 border-border bg-card text-foreground font-semibold text-sm transition-all duration-300 hover:border-primary hover:text-primary w-full sm:w-auto"
+                className="inline-flex items-center justify-center px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg border border-border bg-card text-foreground font-semibold text-sm lg:text-lg transition-all duration-300 hover:border-primary hover:text-primary w-full sm:w-auto"
               >
                 Conhecer Serviços
               </motion.a>

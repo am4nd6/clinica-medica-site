@@ -10,7 +10,7 @@ const DNATechSection = () => {
       <div className="absolute inset-0 bg-secondary/80" />
 
       <div className="container mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -25,7 +25,7 @@ const DNATechSection = () => {
               Tecnologia que antecipa diagnósticos e{" "}
               <span className="text-primary">personaliza tratamentos</span>
             </h2>
-            <p className="text-secondary-foreground/70 text-lg leading-relaxed">
+            <p className="text-secondary-foreground/70 text-lg leading-relaxed text-justify">
               Utilizamos inteligência artificial e análise genômica avançada para oferecer diagnósticos mais rápidos, 
               precisos e tratamentos personalizados para cada paciente.
             </p>

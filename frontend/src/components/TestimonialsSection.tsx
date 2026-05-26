@@ -40,7 +40,7 @@ const TestimonialsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-6 md:mb-8"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium mb-4">
             Depoimentos
@@ -57,7 +57,7 @@ const TestimonialsSection = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.4 }}
-            className="bg-card rounded-3xl p-8 md:p-12 shadow-sm border border-border/50 text-center"
+            className="bg-card rounded-3xl p-6 md:p-10 shadow-sm border border-border/50 text-center"
           >
             <div className="flex justify-center mb-4">
               {[...Array(testimonials[current].rating)].map((_, i) => (
@@ -81,7 +81,7 @@ const TestimonialsSection = () => {
             </div>
           </motion.div>
 
-          <div className="flex justify-center gap-4 mt-8">
+          <div className="flex justify-center gap-4 mt-6">
             <button
               onClick={prev}
               className="w-12 h-12 rounded-full bg-card border border-border/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-200 hover:scale-105 active:scale-95"

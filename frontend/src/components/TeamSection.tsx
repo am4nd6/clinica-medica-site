@@ -20,7 +20,7 @@ const TeamSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-6 md:mb-8"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium mb-4">
             Nossa Equipe
@@ -55,7 +55,7 @@ const TeamSection = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-              <div className="p-5">
+              <div className="p-4 md:p-5">
                 <h3 className="font-heading text-lg font-semibold text-foreground">{member.name}</h3>
                 <p className="text-primary text-sm font-medium mt-1">{member.specialty}</p>
                 <p className="text-muted-foreground text-xs mt-1">{member.crm}</p>

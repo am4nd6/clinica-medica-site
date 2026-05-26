@@ -1,24 +1,23 @@
 import { motion } from "framer-motion";
 import { Box } from "lucide-react";
-import { LOGO_SCALE, LOGO_GAP } from "@/lib/logo";
+import { LOGO_SCALE } from "@/lib/logo";
 
 const Footer = () => {
   const logoSize = Math.round(44 * (LOGO_SCALE / 100));
-  const logoGap = Math.round(8 * (LOGO_GAP / 100));
 
   return (
-    <footer id="contato" className="bg-secondary pt-16 pb-8">
-      <div className="container mx-auto">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div className="space-y-4">
-            <div className="flex items-center" style={{ gap: logoGap }}>
+    <footer id="contato" className="bg-secondary py-10 md:py-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div>
+            <div className="flex items-start gap-2 mb-4">
               <img
                 src="/logo.png"
                 alt="VidaPlena logo"
                 width={logoSize}
                 height={logoSize}
                 style={{ width: logoSize, height: logoSize }}
-                className="rounded-lg object-cover"
+                className="rounded-lg object-cover flex-shrink-0"
                 onError={(e) => {
                   const t = e.currentTarget;
                   t.style.display = "none";
@@ -30,14 +29,16 @@ const Footer = () => {
                   t.parentElement?.insertBefore(fb, t);
                 }}
               />
-              <span className="font-heading font-bold text-xl text-secondary-foreground">VidaPlena</span>
+              <div className="min-w-0">
+                <span className="font-heading font-bold text-xl text-secondary-foreground">VidaPlena</span>
+                <p className="text-secondary-foreground/60 text-sm leading-relaxed mt-1.5">
+                  Saúde inteligente com cuidado humano. Tecnologia e acolhimento para cuidar de você.
+                </p>
+              </div>
             </div>
-            <p className="text-secondary-foreground/60 text-sm leading-relaxed">
-              Saúde inteligente com cuidado humano. Tecnologia e acolhimento para cuidar de você.
-            </p>
           </div>
 
-          <div>
+          <div className="pt-[14px]">
             <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Links Rápidos</h4>
             <ul className="space-y-2">
               {[
@@ -55,7 +56,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="pt-[14px]">
             <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Serviços</h4>
             <ul className="space-y-2">
               {["Cardiologia", "Pediatria", "Ortopedia", "Telemedicina"].map((item) => (
@@ -66,9 +67,9 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="pt-[14px]">
             <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Contato</h4>
-            <ul className="space-y-2 text-sm text-secondary-foreground/60">
+            <ul className="space-y-2 text-sm text-secondary-foreground/60 break-words">
               <li>Av. Paulista, 1000</li>
               <li>São Paulo - SP</li>
               <li>(11) 3000-0000</li>
@@ -84,9 +85,9 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           id="creditos-3d"
-          className="border-t border-secondary-foreground/10 pt-8 mb-6 flex justify-center"
+          className="border-t border-secondary-foreground/10 pt-6 mb-4 flex justify-center"
         >
-          <div className="inline-flex flex-col sm:flex-row items-center gap-2 px-5 py-3 rounded-xl bg-secondary-foreground/5 border border-secondary-foreground/8 w-fit">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-secondary-foreground/5 border border-secondary-foreground/8 w-full max-w-sm mx-auto">
             <div className="flex items-center gap-2 flex-shrink-0">
               <Box size={14} className="text-primary" />
               <span className="text-xs font-semibold text-secondary-foreground/70 uppercase tracking-wide">

@@ -19,7 +19,7 @@ const ServicesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-6 md:mb-8"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium mb-4">
             Nossos Serviços
@@ -41,13 +41,15 @@ const ServicesSection = () => {
               viewport={{ once: true, margin: "-30px" }}
               transition={{ delay: i * 0.08, duration: 0.6 }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="group p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 cursor-pointer"
+              className="group p-6 md:p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 cursor-pointer"
             >
               <div className="w-14 h-14 rounded-xl bg-accent flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors duration-300">
                 <service.icon className="w-7 h-7 text-primary" strokeWidth={1.5} />
               </div>
               <h3 className="font-heading text-xl font-semibold text-foreground mb-3">{service.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{service.desc}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed text-justify">
+                {service.desc}
+              </p>
             </motion.div>
           ))}
         </div>

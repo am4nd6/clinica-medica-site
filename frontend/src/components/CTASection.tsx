@@ -14,7 +14,7 @@ const CTASection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="max-w-2xl mx-auto space-y-8"
+          className="max-w-2xl mx-auto space-y-6"
         >
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-secondary-foreground">
             Cuide da sua saúde <span className="text-primary">hoje mesmo</span>
@@ -26,7 +26,7 @@ const CTASection = () => {
             href="#"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center justify-center px-10 py-4 rounded-xl bg-primary text-primary-foreground font-semibold text-lg transition-all duration-300"
+            className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-primary text-foreground font-semibold text-base transition-all duration-300"
             style={{ boxShadow: "var(--shadow-button)" }}
           >
             Agendar Consulta
