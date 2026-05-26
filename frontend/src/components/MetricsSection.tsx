@@ -37,7 +37,7 @@ const CountUp = ({ target, prefix, suffix }: { target: number; prefix: string; s
   }, [target]);
 
   return (
-    <div ref={ref} className="font-heading text-4xl md:text-5xl font-bold text-foreground">
+    <div ref={ref} className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
       {prefix}{count.toLocaleString("pt-BR")}{suffix}
     </div>
   );
@@ -47,7 +47,7 @@ const MetricsSection = () => {
   return (
     <section className="section-padding relative z-10 bg-background">
       <div className="container mx-auto">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {metrics.map((metric, i) => (
             <motion.div
               key={metric.label}
@@ -56,7 +56,7 @@ const MetricsSection = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="text-center p-6 rounded-2xl bg-card border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300"
+              className="text-center p-4 md:p-6 rounded-2xl bg-card border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300"
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}

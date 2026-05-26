@@ -8,7 +8,7 @@ const Footer = () => {
 
   return (
     <footer id="contato" className="bg-secondary pt-16 pb-8">
-      <div className="container mx-auto px-4 md:px-8">
+      <div className="container mx-auto">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div className="space-y-4">
             <div className="flex items-center" style={{ gap: logoGap }}>

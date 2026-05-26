@@ -22,7 +22,7 @@ const HeroSection = () => {
     <section
       ref={sectionRef}
       id="inicio"
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
+      className="relative overflow-hidden pt-20 pb-12 md:pb-20 lg:pb-0 lg:min-h-screen lg:flex lg:items-center"
       style={{ background: "var(--gradient-hero)" }}
     >
       {/* Background decorative elements */}
@@ -32,8 +32,8 @@ const HeroSection = () => {
         <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] rounded-full bg-accent/40 blur-3xl" />
       </motion.div>
 
-      <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Left: Text */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}

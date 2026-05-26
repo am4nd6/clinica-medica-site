@@ -1,62 +1,29 @@
 import { Suspense, Component, type ReactNode } from "react";
-import { useRef } from "react";
-import { useFrame, Canvas } from "@react-three/fiber";
+import { useRef, useEffect } from "react";
+import { useFrame, useThree, Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Environment, Center } from "@react-three/drei";
 import * as THREE from "three";
 
-// ─── Procedural fallback heart (sphere) ───────────────────────────────────────
 function ProceduralHeart() {
-  const groupRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (!groupRef.current) return;
-    const t = state.clock.getElapsedTime();
-    const beat = Math.pow(Math.max(0, Math.sin(t * 2.8)), 8) * 0.08;
-    const scale = 1 + beat;
-    groupRef.current.scale.set(scale, scale, scale);
-    groupRef.current.rotation.y += 0.005;
-  });
-
   return (
-    <Center>
-      <group ref={groupRef}>
-        <mesh>
-          <sphereGeometry args={[2.2, 64, 64]} />
-          <meshStandardMaterial
-            color="#c0392b"
-            roughness={0.3}
-            metalness={0.2}
-            emissive="#7b0000"
-            emissiveIntensity={0.4}
-          />
-        </mesh>
-      </group>
-    </Center>
+    <mesh>
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshStandardMaterial
+        color="#c0392b"
+        roughness={0.3}
+        metalness={0.2}
+        emissive="#7b0000"
+        emissiveIntensity={0.4}
+      />
+    </mesh>
   );
 }
 
-// ─── Real GLTF heart model ─────────────────────────────────────────────────────
 function RealHeartModel() {
-  const group = useRef<THREE.Group>(null);
   const { scene } = useGLTF("/models/heart.glb");
-
-  useFrame((state) => {
-    if (!group.current) return;
-    const t = state.clock.getElapsedTime();
-    const beat = Math.sin(t * 2.5) * 0.03 + Math.sin(t * 5) * 0.01;
-    const scale = 1 + Math.max(0, beat);
-    group.current.scale.set(scale, scale, scale);
-    group.current.rotation.y += 0.002;
-  });
-
-  return (
-    <Center>
-      <primitive ref={group} object={scene} />
-    </Center>
-  );
+  return <primitive object={scene} />;
 }
 
-// ─── Error boundary to catch GLTF load failures ───────────────────────────────
 interface EBState { hasError: boolean }
 class HeartErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, EBState> {
   state: EBState = { hasError: false };
@@ -66,57 +33,89 @@ class HeartErrorBoundary extends Component<{ children: ReactNode; fallback: Reac
   }
 }
 
-// ─── Scene (used inside Canvas) ───────────────────────────────────────────────
 function HeartScene() {
+  const groupRef = useRef<THREE.Group>(null);
+  const { camera } = useThree();
+
+  useEffect(() => {
+    if (!groupRef.current) return;
+
+    const raf = requestAnimationFrame(() => {
+      if (!groupRef.current) return;
+
+      const box = new THREE.Box3().setFromObject(groupRef.current);
+      if (box.isEmpty()) return;
+
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.y, size.z);
+      if (maxDim < 0.001) return;
+
+      const vFov = (camera.fov * Math.PI) / 180;
+      const dist = maxDim / (2 * Math.tan(vFov / 2));
+
+      camera.position.set(center.x, center.y, Math.max(dist * 1.6, 3));
+      camera.lookAt(center);
+      camera.updateProjectionMatrix();
+    });
+
+    return () => cancelAnimationFrame(raf);
+  });
+
+  useFrame((state) => {
+    if (!groupRef.current) return;
+    const t = state.clock.getElapsedTime();
+    const beat = 1 + Math.pow(Math.max(0, Math.sin(t * 2.7)), 8) * 0.07;
+    groupRef.current.scale.set(beat, beat, beat);
+    groupRef.current.rotation.y += 0.004;
+  });
+
   return (
     <>
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[5, 5, 5]} intensity={1.4} castShadow />
-      <directionalLight position={[-5, -3, -5]} intensity={0.5} color="#ff6b6b" />
-      <pointLight position={[0, 2, 3]} intensity={1.0} color="#ff4444" />
-      <pointLight position={[0, -2, -3]} intensity={0.4} color="#ff9999" />
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[5, 5, 5]} intensity={1.5} castShadow />
+      <directionalLight position={[-5, -3, -5]} intensity={0.4} color="#ff6b6b" />
+      <pointLight position={[0, 3, 4]} intensity={0.8} color="#ff4444" />
       <Environment preset="city" />
 
-      <HeartErrorBoundary fallback={<ProceduralHeart />}>
-        <Suspense fallback={<ProceduralHeart />}>
-          <RealHeartModel />
-        </Suspense>
-      </HeartErrorBoundary>
+      <group ref={groupRef}>
+        <Center>
+          <HeartErrorBoundary fallback={<ProceduralHeart />}>
+            <Suspense fallback={<ProceduralHeart />}>
+              <RealHeartModel />
+            </Suspense>
+          </HeartErrorBoundary>
+        </Center>
+      </group>
 
       <OrbitControls
         enableZoom={false}
         enablePan={false}
         autoRotate={false}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={(3 * Math.PI) / 4}
+        minPolarAngle={Math.PI / 6}
+        maxPolarAngle={(5 * Math.PI) / 6}
       />
     </>
   );
 }
 
-// ─── Public export: full section with Canvas ──────────────────────────────────
 export default function Heart3DSection() {
   return (
     <section
       id="coracao-3d"
-      className="relative py-24 overflow-hidden"
+      className="relative py-16 md:py-24 overflow-hidden"
       style={{ background: "var(--gradient-hero)" }}
     >
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl" />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-primary/10 blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Canvas — fills its column, heart centered inside */}
-          <div className="flex items-center justify-center">
-            <div
-              className="w-full rounded-3xl overflow-hidden shadow-2xl bg-black/10"
-              style={{ height: "480px" }}
-            >
+      <div className="container mx-auto relative z-10">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
+          <div className="flex items-center justify-center w-full">
+            <div className="w-full max-w-full h-56 sm:h-72 md:h-80 lg:h-[400px] rounded-3xl overflow-hidden shadow-2xl bg-black/10">
               <Canvas
-                camera={{ position: [0, 0, 1.8], fov: 65 }}
+                camera={{ position: [0, 0, 5], fov: 45 }}
                 gl={{ antialias: true, alpha: true }}
                 style={{ width: "100%", height: "100%" }}
               >
@@ -125,19 +124,18 @@ export default function Heart3DSection() {
             </div>
           </div>
 
-          {/* Text */}
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6 max-w-full">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               Tecnologia Cardíaca
             </div>
 
-            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground">
+            <h2 className="font-heading text-2xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground break-words">
               Cuidando do seu{" "}
               <span className="gradient-text">Coração</span>
             </h2>
 
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-full break-words">
               Nossa clínica utiliza tecnologia de ponta em cardiologia para
               diagnosticar e tratar doenças cardiovasculares com precisão e
               humanização.
@@ -149,18 +147,18 @@ export default function Heart3DSection() {
                 "Monitoramento cardíaco 24h",
                 "Equipe especializada em cardiologia",
               ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <span className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <li key={item} className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="w-2 h-2 rounded-full bg-primary" />
                   </span>
-                  {item}
+                  <span className="break-words">{item}</span>
                 </li>
               ))}
             </ul>
 
             <a
               href="#agendar"
-              className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-base transition-all duration-300 hover:shadow-lg hover:scale-105"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-base transition-all duration-300 hover:shadow-lg hover:scale-105"
             >
               Agendar Consulta Cardíaca
             </a>
