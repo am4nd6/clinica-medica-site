@@ -127,7 +127,7 @@ const Navbar = () => {
         <div className="hidden lg:block">
           <a
             href="#agendar"
-            className="group relative inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-foreground text-sm font-semibold overflow-hidden transition-all duration-300 hover:shadow-lg active:scale-[0.97]"
+            className="group relative inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white text-sm font-semibold overflow-hidden transition-all duration-300 hover:shadow-lg active:scale-[0.97]"
             style={{ boxShadow: "var(--shadow-button)" }}
           >
             <span className="relative z-10">Agendar Consulta</span>
@@ -210,7 +210,7 @@ const Navbar = () => {
                   exit="closed"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="group relative mt-3 inline-flex items-center justify-center px-5 py-3 rounded-lg bg-primary text-foreground text-sm font-semibold overflow-hidden transition-all duration-300 hover:shadow-lg"
+                  className="group relative mt-3 inline-flex items-center justify-center px-5 py-3 rounded-lg bg-primary text-white text-sm font-semibold overflow-hidden transition-all duration-300 hover:shadow-lg"
                   style={{ boxShadow: "var(--shadow-button)" }}
                 >
                   <span className="relative z-10">Agendar Consulta</span>

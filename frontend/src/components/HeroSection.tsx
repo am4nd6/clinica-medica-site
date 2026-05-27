@@ -82,7 +82,7 @@ const HeroSection = () => {
                 href="#agendar"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg bg-primary text-foreground font-semibold text-sm lg:text-lg transition-all duration-300 hover:shadow-lg w-full sm:w-auto"
+                className="inline-flex items-center justify-center px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg bg-primary text-white font-semibold text-sm lg:text-lg transition-all duration-300 hover:shadow-lg w-full sm:w-auto"
                 style={{ boxShadow: "var(--shadow-button)" }}
               >
                 Agendar Consulta

@@ -161,7 +161,7 @@ export default function Heart3DSection() {
 
             <a
               href="#agendar"
-              className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-lg bg-primary text-foreground font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:scale-105"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-lg bg-primary text-white font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:scale-105"
             >
               Agendar Consulta Cardíaca
             </a>
