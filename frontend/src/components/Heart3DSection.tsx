@@ -35,12 +35,15 @@ class HeartErrorBoundary extends Component<{ children: ReactNode; fallback: Reac
 
 function HeartScene() {
   const groupRef = useRef<THREE.Group>(null);
+  const hasFitCameraRef = useRef(false);
   const { camera } = useThree();
 
   useEffect(() => {
+    if (hasFitCameraRef.current) return;
     if (!groupRef.current) return;
 
     const raf = requestAnimationFrame(() => {
+      if (hasFitCameraRef.current) return;
       if (!groupRef.current) return;
 
       const box = new THREE.Box3().setFromObject(groupRef.current);
@@ -59,6 +62,7 @@ function HeartScene() {
         pCamera.position.set(center.x, center.y, Math.max(dist * 1.6, 3));
         pCamera.lookAt(center);
         pCamera.updateProjectionMatrix();
+        hasFitCameraRef.current = true;
       }
     });
 
