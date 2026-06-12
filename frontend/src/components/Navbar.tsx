@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { LOGO_SCALE } from "@/lib/logo";
@@ -37,6 +37,8 @@ const linkVariants = {
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#inicio");
+  const headerRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const logoSize = Math.round(44 * (LOGO_SCALE / 100));
 
   useEffect(() => {
@@ -68,6 +70,20 @@ const Navbar = () => {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (headerRef.current?.contains(target) || menuRef.current?.contains(target)) return;
+
+      setOpen(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [open]);
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -75,7 +91,7 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/30"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div ref={headerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <a href="#inicio" className="flex items-center gap-2 shrink-0">
           <img
             src="/logo.png"
@@ -162,6 +178,7 @@ const Navbar = () => {
               onClick={() => setOpen(false)}
             />
             <motion.div
+              ref={menuRef}
               variants={menuVariants}
               initial="closed"
               animate="open"

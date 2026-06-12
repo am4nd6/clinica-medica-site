@@ -1,7 +1,41 @@
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import dnaTech from "@/assets/dna-tech.jpg";
 
+const sectionImageAnimation = {
+  scale: [1, 1.012, 1.018, 1.01, 1],
+  rotate: [0, -0.08, -0.14, 0.08, 0],
+  transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] },
+};
+
+const isTouchDevice = () =>
+  typeof window !== "undefined" && window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
 const DNATechSection = () => {
+  const sectionImageControls = useAnimation();
+  const cardAnimationTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+  const [supportsHover, setSupportsHover] = useState(false);
+
+  useEffect(() => {
+    setSupportsHover(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (cardAnimationTimeout.current) clearTimeout(cardAnimationTimeout.current);
+    };
+  }, []);
+
+  const animateCardOnTouch = (index: number) => {
+    if (!isTouchDevice()) return;
+    if (cardAnimationTimeout.current) clearTimeout(cardAnimationTimeout.current);
+
+    setActiveCard(null);
+    requestAnimationFrame(() => setActiveCard(index));
+    cardAnimationTimeout.current = setTimeout(() => setActiveCard(null), 360);
+  };
+
   return (
     <section className="section-padding relative overflow-hidden bg-secondary">
       <div className="absolute inset-0 opacity-30">
@@ -43,10 +77,14 @@ const DNATechSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
-                  className="p-4 rounded-xl border border-primary/20 bg-primary/5"
                 >
-                  <div className="text-sm font-semibold text-secondary-foreground">{item.title}</div>
-                  <div className="text-xs text-secondary-foreground/60 mt-1">{item.desc}</div>
+                  <div
+                    onPointerDown={() => animateCardOnTouch(i)}
+                    className={`tech-card-hover h-full p-4 rounded-xl border border-primary/20 bg-primary/5 ${activeCard === i ? "tech-card-tap" : ""}`}
+                  >
+                    <div className="text-sm font-semibold text-secondary-foreground">{item.title}</div>
+                    <div className="text-xs text-secondary-foreground/60 mt-1">{item.desc}</div>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -59,9 +97,17 @@ const DNATechSection = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="relative"
           >
-            <div className="rounded-3xl overflow-hidden shadow-2xl border border-primary/20">
-              <img src={dnaTech} alt="Tecnologia DNA e análise genômica" width={1200} height={800} loading="lazy" className="w-full h-auto" />
-            </div>
+            <motion.div
+              animate={sectionImageControls}
+              onTap={() => {
+                if (isTouchDevice()) sectionImageControls.start(sectionImageAnimation);
+              }}
+              className="rounded-3xl overflow-hidden shadow-2xl border border-primary/20 cursor-pointer"
+            >
+              <div className="tech-image-hover">
+                <img src={dnaTech} alt="Tecnologia DNA e análise genômica" width={1200} height={800} loading="lazy" className="w-full h-auto" />
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

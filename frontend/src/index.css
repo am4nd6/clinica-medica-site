@@ -61,10 +61,43 @@
     @apply border-border;
   }
 
+  html,
+  body {
+    scrollbar-color: hsl(var(--primary)) hsl(var(--accent));
+    scrollbar-width: thin;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-body);
     overflow-x: hidden;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  html::-webkit-scrollbar-track,
+  body::-webkit-scrollbar-track,
+  *::-webkit-scrollbar-track {
+    background: hsl(var(--accent));
+  }
+
+  html::-webkit-scrollbar-thumb,
+  body::-webkit-scrollbar-thumb,
+  *::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(176, 100%, 39%), hsl(176, 80%, 30%));
+    border: 2px solid hsl(var(--accent));
+    border-radius: 999px;
+  }
+
+  html::-webkit-scrollbar-thumb:hover,
+  body::-webkit-scrollbar-thumb:hover,
+  *::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, hsl(176, 100%, 35%), hsl(176, 80%, 25%));
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -84,6 +117,48 @@
   .gradient-text {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, hsl(176, 100%, 39%), hsl(176, 80%, 25%));
+  }
+
+  .tech-card-hover {
+    transition: transform 0.28s ease-out, border-color 0.28s ease-out, box-shadow 0.28s ease-out;
+  }
+
+  .tech-image-hover {
+    transition: transform 0.55s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .tech-card-tap {
+    animation: tech-card-tap 0.36s ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tech-card-hover:hover {
+      transform: translateY(-8px) scale(1.025);
+      border-color: hsla(176, 100%, 39%, 0.45);
+      box-shadow: 0 14px 34px -18px hsla(176, 100%, 39%, 0.55);
+    }
+
+    .tech-image-hover:hover {
+      transform: scale(1.018) rotate(-0.18deg);
+    }
+  }
+
+  @keyframes tech-card-tap {
+    0% {
+      transform: translateY(0) scale(1);
+      border-color: hsla(176, 100%, 39%, 0.2);
+      box-shadow: none;
+    }
+    55% {
+      transform: translateY(-6px) scale(1.018);
+      border-color: hsla(176, 100%, 39%, 0.45);
+      box-shadow: 0 14px 34px -18px hsla(176, 100%, 39%, 0.55);
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      border-color: hsla(176, 100%, 39%, 0.2);
+      box-shadow: none;
+    }
   }
 }
 

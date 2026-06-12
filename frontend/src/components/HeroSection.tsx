@@ -1,22 +1,37 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { Heart } from "lucide-react";
 import heroDoctors from "@/assets/hero-doctors.jpg";
-import avatar1 from "@/assets/avatar-1.jpg";
-import avatar2 from "@/assets/avatar-2.jpg";
-import avatar3 from "@/assets/avatar-3.jpg";
-import avatar4 from "@/assets/avatar-4.jpg";
+import avatar1 from "@/assets/paciente1.png";
+import avatar2 from "@/assets/paciente2.png";
+import avatar3 from "@/assets/paciente3.png";
+import avatar4 from "@/assets/paciente4.png";
 
 const avatars = [avatar1, avatar2, avatar3, avatar4];
 
+const heroImageAnimation = {
+  scale: [1, 1.012, 1.018, 1.01, 1],
+  rotate: [0, -0.08, -0.14, 0.08, 0],
+  transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] },
+};
+
+const isTouchDevice = () =>
+  typeof window !== "undefined" && window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const heroImageControls = useAnimation();
+  const [supportsHover, setSupportsHover] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
   const imageY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+
+  useEffect(() => {
+    setSupportsHover(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, []);
 
   return (
     <section
@@ -102,19 +117,30 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.7 }}
+              whileHover={{ y: -3 }}
               className="flex items-center gap-5"
             >
               <div className="flex -space-x-3">
                 {avatars.map((src, i) => (
-                  <div key={i} className="w-9 h-9 md:w-10 md:h-10 rounded-full border-2 border-card overflow-hidden shadow-sm">
+                  <motion.div
+                    key={i}
+                    whileHover={{ y: -5, scale: 1.08, zIndex: 10 }}
+                    whileTap={{ y: -5, scale: 1.08, zIndex: 10 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="w-9 h-9 md:w-10 md:h-10 rounded-full border-2 border-card overflow-hidden shadow-sm"
+                  >
                     <img src={src} alt="Paciente" className="w-full h-full object-cover" width={44} height={44} />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-              <div>
+              <motion.div
+                whileHover={{ x: 3 }}
+                whileTap={{ x: 3 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+              >
                 <div className="text-sm font-semibold text-foreground">+15.000 pacientes</div>
                 <div className="text-xs text-muted-foreground">confiam em nós</div>
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
 
@@ -125,16 +151,26 @@ const HeroSection = () => {
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
             className="flex-1 w-full relative"
           >
-            <motion.div style={{ y: imageY }} className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <img
-                src={heroDoctors}
-                alt="Equipe médica profissional da clínica VidaPlena"
-                width={1024}
-                height={1024}
-                className="w-full h-auto object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary/15 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent" />
+            <motion.div style={{ y: imageY }}>
+              <motion.div
+                animate={heroImageControls}
+                onTap={() => {
+                  if (isTouchDevice()) heroImageControls.start(heroImageAnimation);
+                }}
+                className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer"
+              >
+                <div className={supportsHover ? "transition-transform duration-500 ease-out hover:scale-[1.018] hover:-rotate-[0.18deg]" : undefined}>
+                  <img
+                    src={heroDoctors}
+                    alt="Equipe médica profissional da clínica VidaPlena"
+                    width={1024}
+                    height={1024}
+                    className="w-full h-auto object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/15 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent" />
+                </div>
+              </motion.div>
             </motion.div>
 
             {/* Subtle glow behind image */}

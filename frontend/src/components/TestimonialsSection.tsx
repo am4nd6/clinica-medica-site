@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import patient1 from "@/assets/patient-1.jpg";
-import patient2 from "@/assets/patient-2.jpg";
+import patient1 from "@/assets/paciente5.png";
+import patient2 from "@/assets/paciente6.png";
 import patient3 from "@/assets/patient-3.jpg";
 
 const testimonials = [
