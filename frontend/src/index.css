@@ -198,7 +198,20 @@
   footer * {
     min-width: 0;
     max-width: 100%;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  footer h4 {
+    font-size: clamp(0.75rem, 3.2vw, 1rem);
+  }
+
+  footer p,
+  footer li,
+  footer a,
+  footer span {
+    font-size: clamp(0.65rem, 2.8vw, 0.875rem);
   }
 
   footer .flex.items-center.gap-3 {
@@ -334,6 +347,27 @@ section:not(#inicio) h2 {
   overflow-wrap: normal;
   word-break: normal;
   hyphens: none;
+}
+
+@media (min-width: 714px) {
+  footer > div:first-child > div:first-child p {
+    font-size: clamp(0.7rem, 1.2vw, 0.875rem);
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 330px) {
+  footer > div:first-child > div:first-child p {
+    margin-left: -46px;
+    width: calc(100% + 46px);
+    max-width: none;
+  }
+}
+
+@media (min-width: 331px) {
+  footer > div:first-child > div:first-child p {
+    margin-top: 0 !important;
+  }
 }
 
 section:not(#inicio) .text-center > span {

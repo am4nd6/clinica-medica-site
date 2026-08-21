@@ -8,16 +8,16 @@ const Footer = () => {
   return (
     <footer id="contato" className="bg-[hsl(210,65%,10%)] py-10 md:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-start gap-2 mb-4">
+            <div className="flex items-start gap-2 mb-4 max-[375px]:gap-1.5">
               <img
                 src="/logo.png"
                 alt="VidaPlena logo"
                 width={logoSize}
                 height={logoSize}
                 style={{ width: logoSize, height: logoSize }}
-                className="rounded-lg object-cover flex-shrink-0"
+                className="rounded-lg object-cover flex-shrink-0 max-[375px]:w-10 max-[375px]:h-10"
                 onError={(e) => {
                   const t = e.currentTarget;
                   t.style.display = "none";
@@ -29,53 +29,15 @@ const Footer = () => {
                   t.parentElement?.insertBefore(fb, t);
                 }}
               />
-              <div className="min-w-0">
-                <span className="font-heading font-bold text-xl text-secondary-foreground">VidaPlena</span>
-                <p className="text-secondary-foreground/60 text-sm leading-relaxed mt-1.5">
+              <div className="min-w-0 flex-1 max-w-full">
+                <span className="flex min-h-[52px] translate-y-0.5 items-center font-heading font-bold text-xl max-[375px]:min-h-10 max-[375px]:text-base max-[187px]:text-xs max-[161px]:text-[0.65rem] text-secondary-foreground">VidaPlena</span>
+                <p className="w-full text-justify text-secondary-foreground/60 text-sm max-[375px]:text-xs leading-relaxed mt-3 break-words">
                   Saúde inteligente com cuidado humano. Tecnologia e acolhimento para cuidar de você.
                 </p>
               </div>
             </div>
           </div>
 
-          <div>
-            <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Links Rápidos</h4>
-            <ul className="space-y-2">
-              {[
-                { label: "Início", href: "#inicio" },
-                { label: "Serviços", href: "#servicos" },
-                { label: "Equipe", href: "#equipe" },
-                { label: "Depoimentos", href: "#depoimentos" },
-              ].map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors duration-200">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Serviços</h4>
-            <ul className="space-y-2">
-              {["Cardiologia", "Pediatria", "Ortopedia", "Telemedicina"].map((item) => (
-                <li key={item}>
-                  <span className="text-sm text-secondary-foreground/60">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="col-span-2 md:col-span-1">
-            <h4 className="font-heading font-semibold text-secondary-foreground mb-4">Contato</h4>
-            <ul className="space-y-2 text-sm text-secondary-foreground/60 break-words">
-              <li>Av. Paulista, 1000</li>
-              <li>São Paulo - SP</li>
-              <li>(11) 3000-0000</li>
-              <li>contato@vidaplena.com.br</li>
-            </ul>
-          </div>
         </div>
 
         {/* ── Créditos de Modelos 3D ── */}
