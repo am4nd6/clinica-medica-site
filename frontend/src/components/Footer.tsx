@@ -31,11 +31,11 @@ const Footer = () => {
               />
               <div className="min-w-0 flex-1 max-w-full">
                 <span className="flex h-[52px] items-center font-heading font-bold text-xl max-[375px]:text-base max-[187px]:text-xs max-[161px]:text-[0.65rem] text-secondary-foreground">VidaPlena</span>
-                <p className="w-full text-justify text-secondary-foreground/60 text-sm max-[375px]:text-xs leading-relaxed mt-1.5 break-words">
-                  Saúde inteligente com cuidado humano. Tecnologia e acolhimento para cuidar de você.
-                </p>
               </div>
             </div>
+            <p className="w-full self-start ml-0 pl-2 text-justify text-secondary-foreground/60 text-sm max-[375px]:text-xs leading-relaxed -mt-5 break-words">
+              Saúde inteligente com cuidado humano. Tecnologia e acolhimento para cuidar de você.
+            </p>
           </div>
 
         </div>
