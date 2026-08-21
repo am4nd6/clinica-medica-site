@@ -1,98 +1,75 @@
-# 🏥 VidaPlena | Saúde Inteligente com Cuidado Humano
+# VidaPlena | Clínica Médica
 
-![Banner](https://img.shields.io/badge/Status-Desenvolvimento-blue?style=for-the-badge)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Node](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+Site institucional da VidaPlena, desenvolvido com React, Vite e Tailwind CSS.
 
-Bem-vindo ao repositório da **VidaPlena**, uma plataforma médica moderna que combina tecnologia de ponta com atendimento humanizado. Este sistema foi projetado com uma arquitetura escalável e profissional, separando o ecossistema de interface do motor de processamento.
-
----
-
-## 🏗️ Arquitetura do Sistema
-
-O projeto utiliza um modelo de **Monorepo**, garantindo que frontend e backend coexistam de forma organizada e eficiente.
+## Estrutura do Projeto
 
 ```text
 /
-├── 🎨 frontend/          # Interface do usuário (React + Vite + Tailwind)
-│   ├── src/
-│   │   ├── components/   # Componentes modulares (Hero, 3D Sections, etc)
-│   │   ├── features/     # Lógica por contexto
-│   │   └── services/     # Integração com a API
-│   └── package.json
-│
-├── ⚙️ backend/           # API e Lógica de Negócio (Node.js + Express)
-│   ├── src/
-│   │   ├── controllers/  # Gerenciamento de rotas
-│   │   ├── services/     # Regras de negócio
-│   │   └── models/       # Definição de dados
-│   └── package.json
-│
-└── package.json          # Orquestrador de Workspaces
+├── frontend/       # Aplicação React, estilos, componentes e recursos
+├── README.md
+└── .gitignore
 ```
 
----
+## Funcionalidades
 
-## ✨ Principais Funcionalidades (Frontend)
+- Interface responsiva para computadores, tablets e dispositivos móveis.
+- Seção hero com chamadas para agendamento de consultas.
+- Seções de serviços, equipe, benefícios e depoimentos.
+- Métricas de atendimento com animações.
+- Mapa e informações de localização.
+- Seções visuais sobre tecnologia 3D e análise genética.
+- Menu mobile e animações com Framer Motion.
 
-- **🚀 Experiência Premium**: Interface fluida com animações modernas e design responsivo.
-- **❤️ Visualização 3D**: Seção interativa com modelagem de coração para uma experiência imersiva.
-- **🧬 DNA Tech Section**: Apresentação visual da tecnologia genética utilizada na clínica.
-- **📊 Métricas em Tempo Real**: Dashboard visual com dados de atendimento e satisfação.
-- **📍 Localização Integrada**: Mapa e informações de contato dinâmicas.
+## Tecnologias Utilizadas
 
----
+- React 18
+- Vite
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Three.js
+- Lucide React
+- Vitest
 
-## 🛠️ Tecnologias Utilizadas
-
-### Frontend
-- **React 18** + **Vite** (Velocidade e performance)
-- **Tailwind CSS** (Estilização moderna e utilitária)
-- **Framer Motion** (Animações fluidas)
-- **Three.js** (Elementos 3D)
-- **Shadcn/UI** (Componentes de alta fidelidade)
-
-### Backend
-- **Node.js** + **Express**
-- **Dotenv** (Gerenciamento de ambiente)
-- **CORS** (Segurança de acesso)
-
----
-
-## 🚀 Como Executar o Projeto
+## Como Executar o Projeto
 
 ### Pré-requisitos
-- Node.js instalado
-- NPM ou Bun
 
-### 1. Clonar e Instalar
+- Node.js instalado.
+- NPM instalado.
+
+### Instalação
+
+Entre na pasta do frontend e instale as dependências:
+
 ```bash
-git clone https://github.com/am4nd6/clinica-medica-site.git
-cd clinica-medica-site
-npm run install:all
+cd frontend
+npm install
 ```
 
-### 2. Rodar os Ambientes
-Você pode rodar ambos os serviços de forma independente a partir da raiz:
+### Desenvolvimento
 
-**Para o Frontend:**
+Inicie o servidor de desenvolvimento:
+
 ```bash
-npm run frontend
+npm run dev
 ```
 
-**Para o Backend:**
+O endereço de acesso será exibido no terminal pelo Vite.
+
+## Comandos Disponíveis
+
+Execute os comandos dentro da pasta `frontend`:
+
 ```bash
-npm run backend
+npm run build       # Gera o build de produção
+npm run build:dev   # Gera o build no modo de desenvolvimento
+npm run lint        # Executa a verificação de lint
+npm run test        # Executa os testes
+npm run preview     # Inicia uma prévia do build de produção
 ```
 
----
+## Licença
 
-## 📄 Licença
-
-Este projeto é de uso exclusivo para a clínica **VidaPlena**. Todos os direitos reservados.
-
----
-<p align="center">
-  Desenvolvido com ❤️ para uma saúde melhor.
-</p>
+Este projeto é de uso exclusivo da clínica VidaPlena. Todos os direitos reservados.

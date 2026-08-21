@@ -132,7 +132,7 @@ export default function Heart3DSection() {
           </div>
 
           <div className="space-y-4 md:space-y-6 max-w-full">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium">
+            <div className="section-eyebrow inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               Tecnologia Cardíaca
             </div>
@@ -148,7 +148,7 @@ export default function Heart3DSection() {
               humanização.
             </p>
 
-            <ul className="space-y-3 text-muted-foreground">
+            <ul className="space-y-3 text-base md:text-lg text-muted-foreground leading-relaxed">
               {[
                 "Ecocardiograma de última geração",
                 "Monitoramento cardíaco 24h",
@@ -158,14 +158,14 @@ export default function Heart3DSection() {
                   <span className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="w-2 h-2 rounded-full bg-primary" />
                   </span>
-                  <span className="break-words">{item}</span>
+                   <span className="text-sm md:text-base max-[186px]:text-[0.55rem] leading-relaxed break-words">{item}</span>
                 </li>
               ))}
             </ul>
 
             <a
               href="#agendar"
-              className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-lg bg-primary text-white font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:scale-105"
+              className="inline-flex h-9 items-center justify-center whitespace-nowrap px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg bg-primary text-white font-semibold text-sm max-[261px]:text-xs max-[204px]:text-[0.65rem] max-[172px]:text-[0.55rem] lg:text-lg transition-all duration-300 hover:shadow-lg w-full sm:w-auto max-lg:flex max-lg:w-full max-lg:mx-auto"
             >
               Agendar Consulta Cardíaca
             </a>

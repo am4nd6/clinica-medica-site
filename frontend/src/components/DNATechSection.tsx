@@ -52,7 +52,7 @@ const DNATechSection = () => {
             transition={{ duration: 0.7 }}
             className="min-w-0 space-y-6"
           >
-            <span className="section-eyebrow inline-block max-[239px]:px-2 max-[239px]:py-1 rounded-full bg-primary/15 text-primary text-sm max-[239px]:text-xs font-medium">
+            <span className="section-eyebrow inline-block max-[239px]:px-2 max-[239px]:py-1 rounded-full bg-primary/15 text-primary text-sm max-[239px]:text-xs max-[154px]:text-[0.55rem] font-medium">
               Inovação & Tecnologia
             </span>
             <h2 className="font-heading text-3xl max-[239px]:text-2xl max-[199px]:text-[clamp(0.9rem,7vw,1.5rem)] md:text-4xl lg:text-5xl font-bold text-secondary-foreground leading-tight break-words max-[199px]:break-normal">

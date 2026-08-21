@@ -332,6 +332,12 @@
   }
 }
 
+@media (max-width: 154px) {
+  section:not(#inicio) .section-eyebrow {
+    font-size: 0.55rem !important;
+  }
+}
+
 @media (max-width: 199px) {
   .bg-secondary h2 {
     font-size: clamp(0.9rem, 7vw, 1.5rem);
@@ -351,22 +357,22 @@ section:not(#inicio) h2 {
 
 @media (min-width: 714px) {
   footer > div:first-child > div:first-child p {
-    font-size: clamp(0.7rem, 1.2vw, 0.875rem);
+    font-size: clamp(0.875rem, 1.2vw, 0.875rem);
     white-space: nowrap;
   }
 }
 
 @media (max-width: 330px) {
   footer > div:first-child > div:first-child p {
-    margin-left: -46px;
-    width: calc(100% + 46px);
+    margin-left: -40px;
+    width: calc(100% + 40px);
     max-width: none;
   }
 }
 
 @media (min-width: 331px) {
   footer > div:first-child > div:first-child p {
-    margin-top: 0 !important;
+    margin-top: -0.25rem !important;
   }
 }
 
@@ -381,4 +387,13 @@ section:not(#inicio) .section-eyebrow {
 section:not(#inicio) h2 + p,
 section:not(#inicio) h2 ~ p {
   font-size: clamp(0.85rem, 2.8vw, 1.125rem);
+}
+
+@media (max-width: 154px) {
+  section:not(#inicio) .text-center > span,
+  section:not(#inicio) .section-eyebrow {
+    padding-inline: 0.25rem;
+    font-size: 0.5rem !important;
+    gap: 0.25rem;
+  }
 }

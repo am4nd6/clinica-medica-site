@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-start gap-2 mb-4 max-[375px]:gap-1.5">
+            <div className="flex items-start gap-0 mb-4 max-[375px]:gap-0">
               <img
                 src="/logo.png"
                 alt="VidaPlena logo"
@@ -30,8 +30,8 @@ const Footer = () => {
                 }}
               />
               <div className="min-w-0 flex-1 max-w-full">
-                <span className="flex min-h-[52px] translate-y-0.5 items-center font-heading font-bold text-xl max-[375px]:min-h-10 max-[375px]:text-base max-[187px]:text-xs max-[161px]:text-[0.65rem] text-secondary-foreground">VidaPlena</span>
-                <p className="w-full text-justify text-secondary-foreground/60 text-sm max-[375px]:text-xs leading-relaxed mt-3 break-words">
+                <span className="flex h-[52px] items-center font-heading font-bold text-xl max-[375px]:text-base max-[187px]:text-xs max-[161px]:text-[0.65rem] text-secondary-foreground">VidaPlena</span>
+                <p className="w-full text-justify text-secondary-foreground/60 text-sm max-[375px]:text-xs leading-relaxed mt-1.5 break-words">
                   Saúde inteligente com cuidado humano. Tecnologia e acolhimento para cuidar de você.
                 </p>
               </div>
@@ -49,15 +49,15 @@ const Footer = () => {
           id="creditos-3d"
           className="border-t border-secondary-foreground/10 pt-6 mb-4 flex justify-center"
         >
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-secondary-foreground/5 border border-secondary-foreground/8 w-full max-w-sm mx-auto">
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <Box size={14} className="text-primary" />
-              <span className="text-xs font-semibold text-secondary-foreground/70 uppercase tracking-wide">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 py-2.5 max-[187px]:gap-1 max-[187px]:px-2 max-[187px]:py-1.5 rounded-xl bg-secondary-foreground/5 border border-secondary-foreground/8 w-full max-w-sm mx-auto">
+            <div className="flex items-center gap-2 max-[187px]:gap-1 flex-shrink-0">
+              <Box size={14} className="max-[187px]:w-3 max-[187px]:h-3 text-primary" />
+              <span className="text-xs max-[187px]:text-[0.55rem] font-semibold text-secondary-foreground/70 uppercase tracking-wide">
                 Créditos 3D
               </span>
             </div>
             <div className="w-px h-3.5 bg-secondary-foreground/20 hidden sm:block" />
-            <p className="text-xs text-secondary-foreground/50 text-center sm:text-left">
+            <p className="text-xs max-[187px]:text-[0.55rem] text-secondary-foreground/50 text-center sm:text-left break-words">
               Modelo do coração por{" "}
               <a
                 href="#"
