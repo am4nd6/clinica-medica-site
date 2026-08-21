@@ -16,7 +16,7 @@ const TeamSection = () => {
     <section id="equipe" className="section-padding bg-background">
       <div className="container mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
@@ -37,12 +37,12 @@ const TeamSection = () => {
           {team.map((member, i) => (
             <motion.div
               key={member.name}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="group rounded-2xl overflow-hidden bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+              className="group rounded-2xl overflow-hidden bg-muted border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
             >
               <div className="relative overflow-hidden aspect-[4/5]">
                 <img

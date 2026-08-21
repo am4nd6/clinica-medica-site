@@ -6,7 +6,7 @@ const LocationSection = () => {
     <section id="localizacao" className="section-padding bg-muted/50">
       <div className="container mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
@@ -22,14 +22,14 @@ const LocationSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
             className="w-full min-w-0 rounded-2xl overflow-hidden shadow-lg border border-border/50 h-[220px] min-[327px]:h-[280px] sm:h-[400px]"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1976573849454!2d-46.65492!3d-23.56444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c7f4818531%3A0x22c0760441e8c845!2sAv.+Paulista%2C+S%C3%A3o+Paulo+-+SP!5e0!3m2!1spt-BR!2sbr!4v1690000000000!5m2!1spt-BR!2sbr"
+              src="https://www.google.com/maps?q=Av.+Paulista,+1000,+S%C3%A3o+Paulo+-+SP&output=embed"
               width="100%"
               height="100%"
               className="block w-full max-w-full h-full"
@@ -42,7 +42,7 @@ const LocationSection = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}

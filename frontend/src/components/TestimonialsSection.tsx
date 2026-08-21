@@ -36,7 +36,7 @@ const TestimonialsSection = () => {
     <section id="depoimentos" className="section-padding bg-muted/50">
       <div className="container mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
@@ -53,7 +53,7 @@ const TestimonialsSection = () => {
         <div className="max-w-3xl mx-auto">
           <motion.div
             key={current}
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.4 }}

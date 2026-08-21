@@ -26,7 +26,6 @@ const HeroSection = () => {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 40]);
 
   useEffect(() => {
@@ -51,14 +50,14 @@ const HeroSection = () => {
         <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-10 items-center">
           {/* Left: Text */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex-1 w-full space-y-6 md:space-y-6"
           >
             <div className="space-y-3 md:space-y-4">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
                 className="hero-eyebrow inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium"
@@ -68,7 +67,7 @@ const HeroSection = () => {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.7 }}
                 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-foreground break-words"
@@ -78,7 +77,7 @@ const HeroSection = () => {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.7 }}
                 className="text-base sm:text-lg text-muted-foreground leading-relaxed break-words max-w-xl"
@@ -88,7 +87,7 @@ const HeroSection = () => {
             </div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.7 }}
               className="flex flex-col sm:flex-row gap-3"
@@ -114,7 +113,7 @@ const HeroSection = () => {
 
             {/* Trust badges */}
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={{}}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.7 }}
               whileHover={{ y: -3 }}
@@ -147,18 +146,18 @@ const HeroSection = () => {
 
           {/* Right: Image */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
             className="flex-1 w-full relative"
           >
-            <motion.div style={{ y: imageY }}>
+            <motion.div>
               <motion.div
                 animate={heroImageControls}
                 onTap={() => {
                   if (isTouchDevice()) heroImageControls.start(heroImageAnimation);
                 }}
-                className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer"
+                className="relative cursor-pointer"
               >
                 <div className={supportsHover ? "transition-transform duration-500 ease-out hover:scale-[1.018] hover:-rotate-[0.18deg]" : undefined}>
                   <img
@@ -166,16 +165,15 @@ const HeroSection = () => {
                     alt="Equipe médica profissional da clínica VidaPlena"
                     width={1024}
                     height={1024}
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto rounded-3xl object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/15 via-transparent to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent" />
+                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-secondary/15 via-transparent to-transparent" />
+                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/5 to-transparent" />
                 </div>
               </motion.div>
             </motion.div>
 
             {/* Subtle glow behind image */}
-            <div className="absolute -inset-2 md:-inset-3 lg:-inset-4 -z-10 rounded-3xl bg-primary/8 blur-2xl" />
           </motion.div>
         </div>
       </div>

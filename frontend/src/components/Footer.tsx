@@ -42,7 +42,7 @@ const Footer = () => {
 
         {/* ── Créditos de Modelos 3D ── */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
