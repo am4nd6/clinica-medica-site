@@ -50,16 +50,16 @@ const DNATechSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="space-y-6"
+            className="min-w-0 space-y-6"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/15 text-primary text-sm font-medium">
+            <span className="section-eyebrow inline-block max-[239px]:px-2 max-[239px]:py-1 rounded-full bg-primary/15 text-primary text-sm max-[239px]:text-xs font-medium">
               Inovação & Tecnologia
             </span>
-            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-secondary-foreground leading-tight">
+            <h2 className="font-heading text-3xl max-[239px]:text-2xl max-[199px]:text-[clamp(0.9rem,7vw,1.5rem)] md:text-4xl lg:text-5xl font-bold text-secondary-foreground leading-tight break-words max-[199px]:break-normal">
               Tecnologia que antecipa diagnósticos e{" "}
               <span className="text-primary">personaliza tratamentos</span>
             </h2>
-            <p className="text-secondary-foreground/70 text-lg leading-relaxed text-justify">
+            <p className="text-secondary-foreground/70 text-lg max-[239px]:text-sm leading-relaxed text-justify break-words">
               Utilizamos inteligência artificial e análise genômica avançada para oferecer diagnósticos mais rápidos, 
               precisos e tratamentos personalizados para cada paciente.
             </p>
@@ -80,10 +80,10 @@ const DNATechSection = () => {
                 >
                   <div
                     onPointerDown={() => animateCardOnTouch(i)}
-                    className={`tech-card-hover h-full p-4 rounded-xl border border-primary/20 bg-primary/5 ${activeCard === i ? "tech-card-tap" : ""}`}
+                    className={`tech-card-hover min-w-0 h-full p-4 max-[239px]:p-2 rounded-xl border border-primary/20 bg-primary/5 ${activeCard === i ? "tech-card-tap" : ""}`}
                   >
-                    <div className="text-sm font-semibold text-secondary-foreground">{item.title}</div>
-                    <div className="text-xs text-secondary-foreground/60 mt-1">{item.desc}</div>
+                    <div className="text-sm max-[239px]:text-xs font-semibold text-secondary-foreground break-words">{item.title}</div>
+                    <div className="text-xs text-secondary-foreground/60 mt-1 break-words">{item.desc}</div>
                   </div>
                 </motion.div>
               ))}

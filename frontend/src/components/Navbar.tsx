@@ -39,7 +39,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("#inicio");
   const headerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const logoSize = Math.round(44 * (LOGO_SCALE / 100));
+  const logoSize = Math.round(40 * (LOGO_SCALE / 100));
 
   useEffect(() => {
     if (open) {
@@ -99,7 +99,7 @@ const Navbar = () => {
             width={logoSize}
             height={logoSize}
             style={{ width: logoSize, height: logoSize }}
-            className="rounded-lg object-cover"
+            className="rounded-lg object-cover shrink-0"
             onError={(e) => {
               const t = e.currentTarget;
               t.style.display = "none";
@@ -227,7 +227,7 @@ const Navbar = () => {
                   exit="closed"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="group relative mt-3 inline-flex items-center justify-center px-5 py-3 rounded-lg bg-primary text-white text-sm font-semibold overflow-hidden transition-all duration-300 hover:shadow-lg"
+                  className="group relative mt-3 inline-flex h-10 items-center justify-center px-5 py-0 rounded-lg bg-primary text-white text-sm font-semibold overflow-hidden transition-all duration-300 hover:shadow-lg"
                   style={{ boxShadow: "var(--shadow-button)" }}
                 >
                   <span className="relative z-10">Agendar Consulta</span>

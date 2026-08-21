@@ -61,7 +61,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium"
+                className="hero-eyebrow inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium"
               >
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse-slow" />
                 Cuidado médico de excelência
@@ -97,7 +97,7 @@ const HeroSection = () => {
                 href="#agendar"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg bg-primary text-white font-semibold text-sm lg:text-lg transition-all duration-300 hover:shadow-lg w-full sm:w-auto"
+                className="inline-flex h-9 items-center justify-center whitespace-nowrap px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg bg-primary text-white font-semibold text-sm lg:text-lg transition-all duration-300 hover:shadow-lg w-full sm:w-auto"
                 style={{ boxShadow: "var(--shadow-button)" }}
               >
                 Agendar Consulta
@@ -106,7 +106,7 @@ const HeroSection = () => {
                 href="#servicos"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg border border-border bg-card text-foreground font-semibold text-sm lg:text-lg transition-all duration-300 hover:border-primary hover:text-primary w-full sm:w-auto"
+                className="inline-flex h-9 items-center justify-center whitespace-nowrap px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg border border-border bg-card text-foreground font-semibold text-sm lg:text-lg transition-all duration-300 hover:border-primary hover:text-primary w-full sm:w-auto"
               >
                 Conhecer Serviços
               </motion.a>
@@ -118,16 +118,16 @@ const HeroSection = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.7 }}
               whileHover={{ y: -3 }}
-              className="flex items-center gap-5"
+              className="flex items-center gap-5 max-[294px]:items-start max-[294px]:gap-2 max-[294px]:flex-col"
             >
-              <div className="flex -space-x-3">
+              <div className="flex max-w-full -space-x-3">
                 {avatars.map((src, i) => (
                   <motion.div
                     key={i}
                     whileHover={{ y: -5, scale: 1.08, zIndex: 10 }}
                     whileTap={{ y: -5, scale: 1.08, zIndex: 10 }}
                     transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="w-9 h-9 md:w-10 md:h-10 rounded-full border-2 border-card overflow-hidden shadow-sm"
+                    className="w-9 h-9 md:w-10 md:h-10 max-[294px]:w-8 max-[294px]:h-8 rounded-full border-2 border-card overflow-hidden shadow-sm"
                   >
                     <img src={src} alt="Paciente" className="w-full h-full object-cover" width={44} height={44} />
                   </motion.div>
@@ -137,9 +137,10 @@ const HeroSection = () => {
                 whileHover={{ x: 3 }}
                 whileTap={{ x: 3 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
+                className="min-w-0 max-w-full"
               >
-                <div className="text-sm font-semibold text-foreground">+15.000 pacientes</div>
-                <div className="text-xs text-muted-foreground">confiam em nós</div>
+                <div className="text-[clamp(0.65rem,3.8vw,0.875rem)] font-semibold text-foreground whitespace-nowrap">+15.000 pacientes</div>
+                <div className="text-[clamp(0.55rem,3vw,0.75rem)] text-muted-foreground whitespace-nowrap">confiam em nós</div>
               </motion.div>
             </motion.div>
           </motion.div>

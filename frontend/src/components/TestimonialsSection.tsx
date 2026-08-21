@@ -57,26 +57,26 @@ const TestimonialsSection = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.4 }}
-            className="bg-card rounded-3xl p-6 md:p-10 shadow-sm border border-border/50 text-center"
+            className="min-w-0 bg-card rounded-3xl p-6 md:p-10 max-[281px]:p-3 shadow-sm border border-border/50 text-center"
           >
             <div className="flex justify-center mb-4">
               {[...Array(testimonials[current].rating)].map((_, i) => (
                 <Star key={i} className="w-5 h-5 text-primary fill-primary" />
               ))}
             </div>
-            <p className="text-lg md:text-xl text-foreground leading-relaxed mb-8 italic">
+            <p className="text-lg md:text-xl max-[281px]:text-sm text-foreground leading-relaxed mb-8 max-[281px]:mb-4 italic break-words">
               "{testimonials[current].text}"
             </p>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-4 max-[281px]:flex-col max-[281px]:gap-2">
               <img
                 src={testimonials[current].photo}
                 alt={testimonials[current].name}
-                className="w-14 h-14 rounded-full object-cover border-2 border-primary/20"
+                className="w-14 h-14 max-[281px]:w-10 max-[281px]:h-10 rounded-full object-cover border-2 border-primary/20"
                 loading="lazy"
               />
-              <div className="text-left">
-                <div className="font-heading font-semibold text-foreground">{testimonials[current].name}</div>
-                <div className="text-sm text-muted-foreground">Paciente</div>
+              <div className="min-w-0 text-left max-[281px]:text-center">
+                <div className="font-heading text-sm max-[281px]:text-xs font-semibold text-foreground break-words">{testimonials[current].name}</div>
+                <div className="text-sm max-[281px]:text-xs text-muted-foreground">Paciente</div>
               </div>
             </div>
           </motion.div>

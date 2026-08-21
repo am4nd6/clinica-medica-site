@@ -26,7 +26,7 @@ const CTASection = () => {
             href="#"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-primary text-white font-semibold text-base transition-all duration-300"
+            className="inline-flex h-9 items-center justify-center whitespace-nowrap px-4 lg:px-5 py-1.5 lg:py-2 rounded-lg bg-primary text-white font-semibold text-sm lg:text-lg transition-all duration-300 w-full sm:w-auto"
             style={{ boxShadow: "var(--shadow-button)" }}
           >
             Agendar Consulta

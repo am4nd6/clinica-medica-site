@@ -171,3 +171,180 @@
     box-shadow: var(--shadow-card-hover);
   }
 }
+
+/* Keep the layout usable on very narrow devices and embedded previews. */
+@media (max-width: 427px) {
+  .section-padding {
+    padding-inline: 0.75rem;
+  }
+
+  .container {
+    padding-inline: 0.75rem;
+  }
+
+  footer .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  footer .col-span-2 {
+    grid-column: span 1;
+  }
+
+  footer > div,
+  nav > div {
+    padding-inline: 0.75rem;
+  }
+
+  footer * {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  footer .flex.items-center.gap-3 {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 326px) {
+  .section-padding {
+    padding-inline: 0.5rem;
+  }
+
+  .container,
+  footer > div,
+  nav > div {
+    padding-inline: 0.5rem;
+  }
+
+  #localizacao iframe {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 318px) {
+  #localizacao .grid > *,
+  #localizacao iframe {
+    min-width: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  #localizacao > .container {
+    width: 100%;
+  }
+
+  #localizacao .h-\[220px\] {
+    height: 180px;
+  }
+}
+
+@media (max-width: 265px) {
+  html,
+  body,
+  #root {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  nav .font-heading.text-xl {
+    display: none;
+  }
+
+  #inicio h1 {
+    font-size: clamp(1.35rem, 8vw, 2rem);
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  #inicio h1 ~ p {
+    font-size: clamp(0.7rem, 3.5vw, 1rem);
+  }
+
+  #inicio h1 ~ p,
+  #inicio h1 + * {
+    line-height: 1.4;
+  }
+
+  #inicio .hero-eyebrow {
+    font-size: clamp(0.6rem, 3vw, 0.875rem);
+  }
+
+  .inline-flex {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 184px) {
+  .section-padding {
+    padding-inline: 0.25rem;
+  }
+
+  .container,
+  footer > div,
+  nav > div {
+    padding-inline: 0.25rem;
+  }
+
+  #inicio .inline-flex {
+    padding-inline: 0.5rem;
+  }
+
+  #inicio h1 {
+    font-size: clamp(1.35rem, 8vw, 1.5rem);
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  #inicio h1 ~ p {
+    font-size: clamp(0.65rem, 3.5vw, 0.8rem);
+  }
+
+  #inicio .hero-eyebrow {
+    font-size: clamp(0.55rem, 3vw, 0.7rem);
+  }
+
+  #inicio .flex.flex-col.sm\:flex-row a {
+    padding-inline: 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 239px) {
+  .bg-secondary .grid > * {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 199px) {
+  .bg-secondary h2 {
+    font-size: clamp(0.9rem, 7vw, 1.5rem);
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+}
+
+/* All section headings share one fluid scale; the hero heading is intentionally excluded. */
+section:not(#inicio) h2 {
+  font-size: clamp(1.2rem, 5vw, 3rem) !important;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+section:not(#inicio) .text-center > span {
+  font-size: clamp(0.65rem, 2.2vw, 0.875rem) !important;
+}
+
+section:not(#inicio) .section-eyebrow {
+  font-size: clamp(0.65rem, 2.2vw, 0.875rem) !important;
+}
+
+section:not(#inicio) h2 + p,
+section:not(#inicio) h2 ~ p {
+  font-size: clamp(0.85rem, 2.8vw, 1.125rem);
+}

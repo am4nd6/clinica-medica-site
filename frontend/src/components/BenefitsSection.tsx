@@ -35,17 +35,17 @@ const BenefitsSection = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.15, duration: 0.6 }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="text-center p-6 md:p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+              className="min-w-0 text-center p-3 md:p-5 max-[264px]:p-2 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
             >
               <motion.div
                 whileHover={{ rotate: 10, scale: 1.1 }}
                 transition={{ duration: 0.3 }}
-                className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center mx-auto mb-4 md:mb-6"
+                className="w-10 h-10 md:w-12 md:h-12 max-[264px]:w-9 max-[264px]:h-9 rounded-xl bg-accent flex items-center justify-center mx-auto mb-2 md:mb-3"
               >
-                <b.icon className="w-8 h-8 text-primary" strokeWidth={1.5} />
+                <b.icon className="w-5 h-5 md:w-6 md:h-6 max-[264px]:w-4 max-[264px]:h-4 text-primary" strokeWidth={1.5} />
               </motion.div>
-              <h3 className="font-heading text-xl font-semibold text-foreground mb-3">{b.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{b.desc}</p>
+              <h3 className="font-heading text-lg md:text-xl max-[264px]:text-base font-semibold text-foreground mb-2 break-words">{b.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed break-words">{b.desc}</p>
             </motion.div>
           ))}
         </div>

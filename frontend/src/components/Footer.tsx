@@ -3,10 +3,10 @@ import { Box } from "lucide-react";
 import { LOGO_SCALE } from "@/lib/logo";
 
 const Footer = () => {
-  const logoSize = Math.round(44 * (LOGO_SCALE / 100));
+  const logoSize = Math.round(40 * (LOGO_SCALE / 100));
 
   return (
-    <footer id="contato" className="bg-secondary py-10 md:py-14">
+    <footer id="contato" className="bg-[hsl(210,65%,10%)] py-10 md:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="col-span-2 md:col-span-1">

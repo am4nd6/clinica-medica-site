@@ -26,12 +26,13 @@ const LocationSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="rounded-2xl overflow-hidden shadow-lg border border-border/50 h-[400px]"
+            className="w-full min-w-0 rounded-2xl overflow-hidden shadow-lg border border-border/50 h-[220px] min-[327px]:h-[280px] sm:h-[400px]"
           >
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1976573849454!2d-46.65492!3d-23.56444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c7f4818531%3A0x22c0760441e8c845!2sAv.+Paulista%2C+S%C3%A3o+Paulo+-+SP!5e0!3m2!1spt-BR!2sbr!4v1690000000000!5m2!1spt-BR!2sbr"
               width="100%"
               height="100%"
+              className="block w-full max-w-full h-full"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
@@ -56,14 +57,14 @@ const LocationSection = () => {
               <motion.div
                 key={item.title}
                 whileHover={{ x: 4, transition: { duration: 0.2 } }}
-                className="flex items-start gap-4 p-4 md:p-5 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-300"
+                className="flex min-w-0 items-start gap-3 p-3 md:gap-4 md:p-5 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-300 max-[264px]:flex-col max-[264px]:p-2"
               >
-                <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center flex-shrink-0">
-                  <item.icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-accent flex items-center justify-center flex-shrink-0 max-[264px]:w-9 max-[264px]:h-9">
+                  <item.icon className="w-5 h-5 md:w-6 md:h-6 max-[264px]:w-4 max-[264px]:h-4 text-primary" strokeWidth={1.5} />
                 </div>
-                <div>
-                  <h3 className="font-heading font-semibold text-foreground">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1 whitespace-pre-line">{item.info}</p>
+                <div className="min-w-0">
+                  <h3 className="font-heading text-lg md:text-xl max-[264px]:text-base font-semibold text-foreground break-words">{item.title}</h3>
+                  <p className="text-sm max-[264px]:text-xs text-muted-foreground mt-1 whitespace-pre-line break-all">{item.info}</p>
                 </div>
               </motion.div>
             ))}
